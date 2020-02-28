@@ -41,10 +41,35 @@ class DB {
         );
     }
 
-    // findAllEmployeesByManager(managerId) {
-        
-    // }
+    findAllEmployeesByManager(managerId) {
+        return this.connection.query(
+            "SELECT employee.id, employee.first_name, employee.last_name, department.name AS department, role.title FROM employee " +
+            "LEFT JOIN role ON employee.role_id = role.id " +
+            "LEFT JOIN department ON role.department_id = department.id " +
+            "WHERE manager_id = ?", managerId
+        )
+    }
 
+    removeEmployee(employeeId) {
+        return this.connection.query(
+            "DELETE FROM employee " +
+            "WHERE employee.id = ?", employeeId
+        )
+    }
+
+    findAllRoles() {
+        return this.connection.query(
+            "SELECT * FROM role"
+        )
+    }
+
+    updateEmployeeRole(employeeId, roleId) {
+        return this.connection.query(
+            "UPDATE employee " +
+            "SET role_id = ? " +
+            "WHERE employee.id = ?", [employeeId, roleId]
+        )
+    }
 
 
 }
