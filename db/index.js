@@ -24,7 +24,7 @@ class DB {
             "LEFT JOIN role on employee.role_id = role.id " +
             "LEFT JOIN department on role.department_id = department.id", function(err,result) {
                 if (err) return reject(err);
-                resolve(result);
+                return resolve(result);
             });
         });
     }
@@ -33,7 +33,7 @@ class DB {
         return new Promise ((resolve,reject) => {
             this.connection.query("SELECT * FROM department", function(err,result) {
                 if (err) return reject(err);
-                resolve(result);
+                return resolve(result);
             });
         });
     }
@@ -46,7 +46,7 @@ class DB {
             "LEFT JOIN department ON role.department_id = department.id " +
             "WHERE department.id = ?", departmentId, function(err,result){
                 if (err) return reject(err);
-                resolve(result);
+                return resolve(result);
             });
         });
     }
@@ -59,7 +59,7 @@ class DB {
             "LEFT JOIN department ON role.department_id = department.id " +
             "WHERE manager_id = ?", managerId, function(err,result) {
                 if (err) return reject(err);
-                resolve(result);
+                return resolve(result);
             });
         });
     }
@@ -70,7 +70,7 @@ class DB {
             "DELETE FROM employee " +
             "WHERE employee.id = ?", employeeId, function(err,result) {
                 if (err) return reject(err);
-                resolve(result);
+                return resolve(result);
             });
         });
     }
@@ -79,7 +79,7 @@ class DB {
         return new Promise ((resolve,reject) => {
             this.connection.query("SELECT * FROM role", function(err,result) {
                 if (err) return reject(err);
-                resolve(result);
+                return resolve(result);
             });
         });
     }
@@ -91,7 +91,7 @@ class DB {
             "SET role_id = ? " +
             "WHERE employee.id = ?", [roleId, employeeId], function(err,result) {
                 if (err) return reject(err);
-                resolve(result);
+                return resolve(result);
             });
         });
     }
@@ -102,50 +102,48 @@ class DB {
             "SELECT * FROM employee " +
             "WHERE id != ?", employeeId, function (err,result) {
                 if (err) return reject(err);
-                resolve(result);
+                return resolve(result);
             });
         });
     }
     // updates selected employee's manager
     updateEmployeeManager(employeeId, managerId) {
-        return new Promise ((reject,resolve) => {
+        return new Promise ((resolve,reject) => {
             this.connection.query(
             "UPDATE employee " +
             "SET manager_id = ? " +
             "WHERE employee.id = ?", [managerId, employeeId], function (err,result){
                 if (err) return reject(err);
-                resolve(result);
+                return resolve(result);
             });
         });
     }
     // create a new role under a department
     createRole(role) {
-        return new Promise ((reject,resolve) => {
-            this.connection.query(
-            "INSERT INTO role SET ?", role, function(err,result) {
+        return new Promise ((resolve,reject) => {
+            this.connection.query("INSERT INTO role SET ?", role, function(err,result) {
                 if (err) return reject(err);
-                resolve(result);
+                return resolve(result);
             });
         });
     }
     // remove a role
     removeRole(roleId) {
-        return new Promise ((reject,resolve) => {
+        return new Promise ((resolve,reject) => {
             this.connection.query(
             "DELETE FROM role " +
             "WHERE role_id = ?", roleId, function(err,result) {
                 if (err) return reject(err);
-                resolve(result);
+                return resolve(result);
             });
         });
     }
     // create a department
     createDepartment(department) {
-        return new Promise ((reject,resolve) => {
-            this.connection.query(
-            "INSERT INTO department SET ?", department, function(err,result) {
+        return new Promise ((resolve,reject) => {
+            this.connection.query("INSERT INTO department SET ?", department, function(err,result) {
                 if (err) return reject(err);
-                resolve(result);
+                return resolve(result);
             });
         });
     }
@@ -156,18 +154,16 @@ class DB {
             "DELETE FROM department " +
             "WHERE id = ?", departmentId, function(err,result) {
                 if (err) return reject(err);
-                resolve(result);
+                return resolve(result);
             });
         });
     }
     // create an employee
     createEmployee(employee) {
         return new Promise ((resolve,reject) => {
-            this.connection.query(
-            "INSERT INTO employee SET ?", employee,
-            function(err,result) {
+            this.connection.query("INSERT INTO employee SET ?", employee, function(err,result) {
                 if (err) return reject(err);
-                resolve(result);
+                return resolve(result);
             });
         });
     }
