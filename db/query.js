@@ -87,10 +87,7 @@ class DB {
     }
     // create a new role under a department
     createRole(role) {
-        return this.connection.query(
-            "INSERT INTO role (title, salary, department_id) " +
-            "SET (?,?,?)", [role.title, role.salary, role.department_id]
-        )
+        return this.connection.query("INSERT INTO role SET ?", role)
     }
     // remove a role
     removeRole(roleId) {
@@ -101,10 +98,7 @@ class DB {
     }
     // create a department
     createDepartment(department) {
-        return this.connection.query(
-            "INSERT INTO department (name) " +
-            "SET ?", department
-        )
+        return this.connection.query("INSERT INTO department SET ?", department)
     }
     // remove a department
     removeDepartment(departmentId) {
@@ -115,10 +109,7 @@ class DB {
     }
     // create an employee
     createEmployee(employee) {
-        return this.connection.query(
-            "INSERT INTO employee (first_name, last_name, role_id, manager_id) " +
-            "SET (?,?,?,?) " [employee.first_name,employee.last_name,employee.role_id,employee.manager_id]
-        )
+        return this.connection.query("INSERT INTO employee SET ?", employee)
     }
 
 }

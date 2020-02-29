@@ -122,8 +122,7 @@ class DB {
     createRole(role) {
         return new Promise ((reject,resolve) => {
             this.connection.query(
-            "INSERT INTO role (title, salary, department_id) " +
-            "SET (?,?,?)", [role.title, role.salary, role.department_id], function(err,result) {
+            "INSERT INTO role SET ?", role, function(err,result) {
                 if (err) return reject(err);
                 resolve(result);
             });
@@ -144,8 +143,7 @@ class DB {
     createDepartment(department) {
         return new Promise ((reject,resolve) => {
             this.connection.query(
-            "INSERT INTO department (name) " +
-            "SET ?", department, function(err,result) {
+            "INSERT INTO department SET ?", department, function(err,result) {
                 if (err) return reject(err);
                 resolve(result);
             });
@@ -166,8 +164,7 @@ class DB {
     createEmployee(employee) {
         return new Promise ((resolve,reject) => {
             this.connection.query(
-            "INSERT INTO employee (first_name, last_name, role_id, manager_id) " +
-            "SET (?,?,?,?) " [employee.first_name,employee.last_name,employee.role_id,employee.manager_id],
+            "INSERT INTO employee SET ?", employee,
             function(err,result) {
                 if (err) return reject(err);
                 resolve(result);
