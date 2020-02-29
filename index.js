@@ -7,7 +7,7 @@ init();
 
 // Display logo text, load main prompts
 function init() {
-  const logoText = logo({ name: "Employee Manager" }).render();
+  const logoText = logo({ name: "Mahouka Koukou no Rettousei" }).render();
 
   console.log(logoText);
 
